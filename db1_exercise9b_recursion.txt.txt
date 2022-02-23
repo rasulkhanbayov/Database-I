@@ -1,0 +1,20 @@
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Flight(airline VARCHAR2(10), orig VARCHAR2(15), dest VARCHAR2(15), cost NUMBER);
+
+-- Reaches(X,Y,C,R)  <--  Flight(X,Y,C) AND R=X||Y
+-- Reaches(X,Y,C,R)  <--  Reaches(X,Z,C1,R1) AND Flight(Z,Y,C2) AND C=C1+C2 AND R=R1||Y AND X <> Y
+
+WITH reaches(orig, dest, cost, route) AS
+(
+  SELECT orig, dest, cost, orig||dest FROM flight
+   UNION ALL
+  SELECT reaches.orig, flight.dest, flight.cost+reaches.cost, reaches.route||flight.dest FROM flight, reaches
+  WHERE reaches.dest = flight.orig AND reaches.orig <> flight.dest
+)
+CYCLE orig, dest SET cycle_yes TO 'Y' DEFAULT 'N'
+SELECT distinct orig, dest, cost, route FROM reaches
+WHERE orig='San Francisco' AND dest='New York';
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
