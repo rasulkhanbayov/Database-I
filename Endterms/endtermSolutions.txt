@@ -1,0 +1,219 @@
+Rasul Khanbayov GGUSA3
+Endterm
+
+//////////////////////////////////////////////////////////////////
+Question 1.
+
+Source code:
+
+CREATE OR REPLACE FUNCTION primefactor(p1 integer) RETURN varchar2 IS
+    TYPE Arr IS TABLE OF number INDEX BY binary_integer;
+    arr1 Arr;
+    prime integer := 2;
+    ind integer := 0;
+    p2 integer := p1;
+    st varchar2(500);
+begin
+    while (p2 >= prime) loop
+        if(mod(p2, prime) = 0) then
+            ind := ind + 1;
+            arr1(ind) := prime;
+            p2 := p2 / prime;
+        else
+            prime := prime + 1;    
+        end if;
+    end loop;
+    for i in 1..ind loop
+        st := st||arr1(i)||'*';
+    end loop;
+    return (p1||' -> '||SUBSTR(st, 0, LENGTH(st) - 1));   
+end;
+/
+set serveroutput on
+SELECT primefactor(86632) FROM dual;
+
+Output: 
+86632 -> 2*2*2*7*7*13*17
+
+//////////////////////////////////////////////////////////////////
+Question 2.
+
+Source code
+
+CREATE OR REPLACE PROCEDURE add_commission(p integer) IS
+    average number;
+begin
+    update emp t set sal = sal + 
+    coalesce(comm, 100) where empno in
+        (select empno from emp, sal_cat where sal between lowest_sal and highest_sal and
+            p = category); 
+    select avg(sal) into average from emp;
+    DBMS_OUTPUT.PUT_LINE(average);
+    ROLLBACK;
+end;
+/
+
+set serveroutput on
+execute add_commission(4);
+
+Output:
+
+2230.882352941176470588235294117647058824
+
+//////////////////////////////////////////////////////////////////
+Question 3.
+
+Soruce code:
+
+CREATE OR REPLACE PROCEDURE letter2 IS
+    CURSOR curs1 is SELECT ename ,sal FROM emp;
+    rec curs1%ROWTYPE;
+    s number:=0;
+    letter char(1);
+BEGIN
+    OPEN curs1;
+     LOOP
+         FETCH curs1 INTO rec;
+             for i in 1..length(rec.ename) loop
+             letter := substr(rec.ename, i, 1);
+                 IF (regexp_count(rec.ename, letter) = 2) THEN
+                    dbms_output.put_line(rec.ename);
+                    s:=s+rec.sal;
+                 EXIT;
+             END IF;
+            END LOOP;
+         EXIT WHEN curs1%NOTFOUND;
+     END LOOP;
+   CLOSE curs1;
+   dbms_output.put_line('The sum is: ' || to_char(s));
+END;
+/
+
+set serveroutput on
+execute letter2;
+
+Output:
+
+ALLEN
+SCOTT
+TURNER
+ADAMS
+MILLER
+COOK
+The sum is: 12300
+
+
+//////////////////////////////////////////////////////////////////
+Question 4.
+
+Source code:
+
+CREATE OR REPLACE PROCEDURE sal_increase(p_deptno INTEGER) IS
+    CURSOR curs1 is SELECT ename, sal FROM emp where p_deptno = deptno for update;
+    rec curs1%ROWTYPE;
+    cnt number;
+    sall number;
+    r number;
+BEGIN
+    OPEN curs1;
+         LOOP
+         FETCH curs1 INTO rec;
+             r := regexp_count(rec.ename, 'T');
+             EXIT WHEN curs1%NOTFOUND;
+             update emp t set sal=sal+(case when r = 0 then 
+             (select category*10000 from emp,
+            sal_cat where sal between lowest_sal and highest_sal and ename = rec.ename)
+             else 10000 end) WHERE CURRENT OF curs1; 
+             select sal into sall from emp where ename = rec.ename;
+             dbms_output.put_line(rec.ename||' -> '||to_char(sall));
+         END LOOP;
+     CLOSE curs1;
+    rollback;
+END;
+/
+
+execute sal_increase(20);
+
+Output:
+
+SMITH -> 10800
+JONES -> 42975
+SCOTT -> 13000
+ADAMS -> 11100
+FORD -> 43000
+
+
+//////////////////////////////////////////////////////////////////
+Question 5.
+
+Source code:
+
+CREATE OR REPLACE FUNCTION sum_of2(p_char VARCHAR2) RETURN number IS
+    summ number := 0;
+    letter char(1);
+    flag number := 1;
+    helpp number := 1;
+    tmpsal number := 0;
+begin
+    for i in 1..length(p_char) loop
+        letter := substr(p_char, i, 1);
+            if(letter = ' ') then
+                summ := summ + 0;
+            elsif (letter = '+' and flag = 1) THEN
+                flag := 0;
+            elsif (letter = '+' and flag = 0)then
+                flag := 1;
+                summ := summ + tmpsal;
+                tmpsal := 0;
+                helpp := 1;
+            elsif (flag = 0) THEN
+                tmpsal := tmpsal*helpp + TO_NUMBER(letter, '9G999D99');
+                helpp :=  helpp * 10;
+            else
+            begin
+                summ := summ + TO_NUMBER(letter, '9G999D99');
+                EXCEPTION
+                    WHEN others THEN
+                    summ := summ + 0;
+                    end;
+             END IF;
+            END LOOP;
+    return summ;
+end;
+/
+SELECT sum_of2('1+21 + bubu + + 2 ++') FROM dual;
+
+
+Output:
+24
+//////////////////////////////////////////////////////////////////
+Question 6.
+
+Source code:
+
+CREATE OR REPLACE PROCEDURE rich_avg_descendant IS
+    averageMoney integer :=0;
+begin
+    for p1 in (select name, parent, money from parentof) loop
+        select avg(money) into averageMoney from 
+        (select name, money from parentof
+        start with parentof.name = p1.name
+        connect by NOCYCLE prior parentof.name = parentof.parent) p2
+        where p2.name <> p1.name;
+        if( p1.money < averageMoney) then
+            dbms_output.put_line(p1.name||'-'||p1.money||'-'||averageMoney);
+        end if;
+    end loop;
+end;
+/
+
+set serveroutput on
+execute rich_avg_descendant();
+execute check_plsql('rich_avg_descendant()');
+
+Output:
+
+GEDEON-120000-141000
+PETER-143000-177000
+SIMEON-154000-178500
+
