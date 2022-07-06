@@ -2,8 +2,8 @@
 
 ## Lecture requirements
 --------------------
-Online (paper and programming) exam at the end of the semester, in the exam period.  <-- Exam
-Attendance is compulsory, it will be monitored through Microsoft Teams.              <-- Attendance
+Online (paper and programming) exam at the end of the semester, in the exam period.  <-- Exam <br />
+Attendance is compulsory, it will be monitored through Microsoft Teams.              <-- Attendance <br />
 (If you have any problems, please let me know about that. I will accept what is 
 acceptable concerning attandance.)
 
@@ -30,10 +30,10 @@ We have two Oracle databases, see below the connect information.
 When you connect to the databases from SqlDeveloper, you have to fill in 
 the appropriate fields with the following information.
 
-ARAMIS
-host: aramis.inf.elte.hu
-port: 1521
-service_name: aramis
+ARAMIS <br />
+host: aramis.inf.elte.hu <br />
+port: 1521 <br />
+service_name: aramis <br />
 
 ULLMAN                  
 host: ullman.inf.elte.hu                
