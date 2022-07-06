@@ -1,32 +1,13 @@
 # Database-I
 
--------------------------------------------------------------------
-General info about Computer Science BSc at ELTE: 
-           http://csbsc.elte.hu/
-You can find here a lot of important information, e.g. Regulations,
-Semester Schedule, University Accounts etc.
--------------------------------------------------------------------
-
-Databases I. Lecture and Practice
-=================================
-Lecture:          Monday   16.15-17.45, (online) -> Tibor NIKOVITS
-Lecture:          Tuesday  12.15-13.45, (online) -> Tibor NIKOVITS
-Practice group 1: Monday   12.15-13.45  (online) -> Tibor NIKOVITS
-Practice group 2: Friday    8.00-10.00  (online) -> Tamás PÁL
-Practice group 3: Friday   10.00-12.00  (online) -> Tamás PÁL
-Practice group 4: Thursday 14.00-16.00  (online) -> Péter LEHOTAY-KÉRY
-
-All the handouts, slides, exercises will be on the homepage.
-Start here to find files and topics -> db1_schedule.txt
-
-Lecture requirements
+## Lecture requirements
 --------------------
 Online (paper and programming) exam at the end of the semester, in the exam period.  <-- Exam
 Attendance is compulsory, it will be monitored through Microsoft Teams.              <-- Attendance
 (If you have any problems, please let me know about that. I will accept what is 
 acceptable concerning attandance.)
 
-Practice requirements (Group 1)
+## Practice requirements (Group 1)
 ---------------------
 Attendance is compulsory, it will be monitored through Microsoft Teams.              <-- Attendance
 If you miss more than 3 occasions you will not get a practical grade.
