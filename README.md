@@ -9,17 +9,17 @@ acceptable concerning attandance.)
 
 ## Practice requirements (Group 1)
 ---------------------
-Attendance is compulsory, it will be monitored through Microsoft Teams.              <-- Attendance
+Attendance is compulsory, it will be monitored through Microsoft Teams.              <-- Attendance <br /> 
 If you miss more than 3 occasions you will not get a practical grade.
-There can be compulsory exercises during practices, and if you don't complete        <-- Compulsory exercises
+There can be compulsory exercises during practices, and if you don't complete        <-- Compulsory exercises <br />
 them, it counts as a miss. (see in db1_exercise1.txt, db1_exercise2.txt ...) 
-There will be two tests in the semester, a midterm test (7th practice)               <-- 2 tests
+There will be two tests in the semester, a midterm test (7th practice)               <-- 2 tests <br />
 and an endterm test (12th practice).
 In the tests you have to write exercises in paper (you will type it into a file) 
 and write SQL and PL/SQL programs by computer.
 The practical grade (1-5) will be the average of the two test grades.
 (e.g. Test1: 3, Test2: 4, Average: 3.5, Final practical grade: 4)
-Retake will be in the first week of the exam period.                                 <-- Retake
+Retake will be in the first week of the exam period.                                 <-- Retake <br />
 If you retake a test then the average of the old and new grades will
 be your test grade. (e.g. original: 2, retake: 5 --> test grade: 3.5)
 
@@ -59,7 +59,7 @@ This way you can work on your own computer if the University database is busy or
 
 !!! Attention !!!
 -----------------
-ELTE has a firewall, so you can connect to the databases from outside ELTE                   <-- Technical info
+ELTE has a firewall, so you can connect to the databases from outside ELTE                   <-- Technical info <br />
 domain only with ssh tunneling see details in ssh_tunnel.pdf or ssh_SqlDeveloper.pdf.
 =====================================================================================
 SOME WORDS ABOUT YOUR ACCOUNTS IN THE UNIVERSITY, JUST TO MAKE THIS CLEAR !!!
